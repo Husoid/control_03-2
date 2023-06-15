@@ -1,5 +1,5 @@
 fun main(args: Array<String>) {
-    println(myPay("MasterCard", amountTransfer = 7000))
+    println(myPay("VK pay", amountTransfer = 16000))
 }
 
 fun myPay(typeCard: String = "VK pay", amountTransfersInDay: Int = 0, amountTransfersInMonth: Int = 0, amountTransfer: Int): String {
@@ -27,9 +27,9 @@ fun myPay(typeCard: String = "VK pay", amountTransfersInDay: Int = 0, amountTran
         }
         return "Ваш перевод с карты $typeCard в сумме $amountTransfer рублей будет с коммиссией $commission рублей"
     } else if (!dayLimit(typeCard, amountTransfersInDay, amountTransfer)) {
-        return "Ваш перевод с карты $typeCard в сумме $amountTransfer отклоненн по причине превышения дневного лимита"
+        return "Ваш перевод с карты $typeCard в сумме $amountTransfer отклонен по причине превышения дневного лимита"
     } else {
-        return "Ваш перевод с карты $typeCard в сумме $amountTransfer отклоненн по причине превышения месячного лимита"
+        return "Ваш перевод с карты $typeCard в сумме $amountTransfer отклонен по причине превышения месячного лимита"
     }
 }
 
@@ -37,6 +37,8 @@ fun dayLimit (typeCard: String, amountTransfersInDay: Int, amountTransfer: Int):
     when (typeCard) {
         "MasterCard", "Maestro", "Visa", "Мир" ->
             return amountTransfersInDay+amountTransfer <= 150000
+        "VK pay" ->
+            return amountTransfer <= 15000
         else -> return false
     }
 }
